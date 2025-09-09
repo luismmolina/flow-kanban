@@ -1,20 +1,66 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Flow Kanban
 
-# Run and deploy your AI Studio app
+Mobile‑first Kanban board optimized for flow. It emphasizes instant visibility of WIP limits, fast capture/edit without context loss, and a thumb‑friendly UI. Data is stored locally in the browser (no backend).
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/temp/1
+- WIP limits: Columns can define limits; moves are blocked when limits are exceeded.
+- Fast capture: One‑tap add and inline edit via a sheet.
+- Focused flow: Quick move to next/previous column; tracks card age since last move.
+- Lightweight data: Persists cards to `localStorage`; no login or server.
+- Mobile friendly: Tailwind‑based layout tuned for small screens.
 
-## Run Locally
+## Tech Stack
 
-**Prerequisites:**  Node.js
+- React 19 + TypeScript
+- Vite 6 for dev/build
+- Tailwind (CDN) for styling
 
+## Getting Started
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Prerequisites: Node.js 18+ (or any recent LTS)
+
+1) Install dependencies
+
+`npm install`
+
+2) Start the dev server
+
+`npm run dev`
+
+3) Build for production
+
+`npm run build`
+
+4) Preview the production build
+
+`npm run preview`
+
+No environment variables are required. The previous reference to `GEMINI_API_KEY` was removed because this app runs entirely in the browser.
+
+## Project Structure
+
+- `index.html` – App shell and Tailwind CDN config
+- `index.tsx` – React entry
+- `App.tsx` – App state, routing between board and editor sheet
+- `components/` – Board, Card, Sheet, and related UI pieces
+- `constants.ts` – Initial columns and sample cards
+- `types.ts` – Shared TypeScript types
+
+## Data Persistence
+
+Cards are saved to `localStorage` under the key `flow-kanban-cards`. Clearing browser data will reset the board.
+
+## Deployment
+
+Any static host will work (GitHub Pages, Netlify, Vercel, etc.).
+
+- Build: `npm run build` (outputs `dist/`)
+- Serve `dist/` with your host of choice
+
+## Roadmap Ideas
+
+- Toast for WIP limit violations
+- Swipe/drag gestures for card movement
+- Simple import/export (JSON)
+- Basic theming and accessibility passes
