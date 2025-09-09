@@ -40,9 +40,9 @@ No environment variables are required. The previous reference to `GEMINI_API_KEY
 
 ## Usage
 
-- Click the pencil on a card to edit details.
-- Move cards by swiping horizontally on touch devices, or use the left/right arrow buttons on each card (desktop).
-- WIP limits block moves when a target column is full.
+- Edit: Click any card to open the details sheet. On touch, tap the card.
+- Move: Drag and drop cards between columns (desktop) or swipe horizontally (touch). WIP limits block drops when a column is full.
+- Quick add: Use the "+ Add" button in any column header, or the floating + button.
 
 ## Project Structure
 

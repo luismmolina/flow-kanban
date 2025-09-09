@@ -111,6 +111,38 @@ const App: React.FC = () => {
     });
   }, [columns]);
 
+  const handleDropCard = useCallback((cardId: string, targetColumnId: string) => {
+    setCards(prevCards => {
+      const cardToMove = prevCards.find(c => c.id === cardId);
+      if (!cardToMove) return prevCards;
+
+      const targetColumn = columns.find(c => c.id === targetColumnId);
+      if (!targetColumn) return prevCards;
+
+      const cardsInTarget = prevCards.filter(c => c.columnId === targetColumn.id && !c.isArchived).length;
+      if (targetColumn.wipLimit !== undefined && cardsInTarget >= targetColumn.wipLimit) {
+        console.warn(`WIP limit of ${targetColumn.wipLimit} reached for column "${targetColumn.title}". Drop blocked.`);
+        return prevCards;
+      }
+
+      return prevCards.map(c => c.id === cardId ? { ...c, columnId: targetColumn.id, age: Date.now() } : c);
+    });
+  }, [columns]);
+
+  const handleAddCardIn = useCallback((columnId: string) => {
+    const newCard: Card = {
+      id: `card-${Date.now()}`,
+      title: '',
+      columnId,
+      age: Date.now(),
+      blocked: false,
+      slaRisk: CardSlaRisk.Low,
+      tags: [],
+    };
+    setEditingCard(newCard);
+    setIsCreatingCard(true);
+  }, []);
+
   return (
     <div className="h-screen w-screen flex flex-col bg-neutral-950 font-sans">
       <main className="flex-1 flex flex-col overflow-hidden relative">
@@ -119,6 +151,8 @@ const App: React.FC = () => {
           cardsByColumn={cardsByColumn}
           onEditCard={handleEditCard}
           onMoveCard={handleMoveCard}
+          onDropCard={handleDropCard}
+          onAddCardIn={handleAddCardIn}
         />
       </main>
 
@@ -126,6 +160,7 @@ const App: React.FC = () => {
         onClick={handleAddNewCard}
         className="fixed bottom-6 right-6 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform hover:scale-110 active:scale-95 z-40"
         aria-label="Add new card"
+        title="Quick add"
         style={{ paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))', paddingRight: 'calc(1rem + env(safe-area-inset-right))' }}
       >
         <AddIcon />

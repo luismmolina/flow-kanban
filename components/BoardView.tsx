@@ -7,6 +7,8 @@ interface BoardViewProps {
   cardsByColumn: { [key: string]: Card[] };
   onEditCard: (cardId: string) => void;
   onMoveCard: (cardId: string, direction: 'next' | 'prev') => void;
+  onDropCard: (cardId: string, targetColumnId: string) => void;
+  onAddCardIn: (columnId: string) => void;
 }
 
 const BoardView: React.FC<BoardViewProps> = ({ 
@@ -14,6 +16,8 @@ const BoardView: React.FC<BoardViewProps> = ({
   cardsByColumn, 
   onEditCard,
   onMoveCard,
+  onDropCard,
+  onAddCardIn,
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   
@@ -27,6 +31,8 @@ const BoardView: React.FC<BoardViewProps> = ({
             cards={cardsByColumn[column.id] || []}
             onEditCard={onEditCard}
             onMoveCard={onMoveCard}
+            onDropCard={onDropCard}
+            onAddCardIn={onAddCardIn}
             isFirst={index === 0}
             isLast={index === columns.length - 1}
           />
