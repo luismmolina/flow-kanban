@@ -161,6 +161,19 @@ const CardComponent: React.FC<CardProps> = ({
             <BlockerIcon className="h-5 w-5" />
           </div>
         )}
+        {/* Desktop edit affordance */}
+        <button
+          type="button"
+          aria-label="Edit card"
+          onClick={() => onEdit(card.id)}
+          className="absolute top-2 left-2 text-neutral-300 hover:text-white bg-neutral-700/70 hover:bg-neutral-600/80 rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          {/* Reuse MoveRightIcon as simple glyph if EditIcon not desired */}
+          {/* Prefer EditIcon if available */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" />
+          </svg>
+        </button>
         <p className="font-semibold text-white pr-6">{card.title}</p>
         
         <div className="flex items-center justify-between mt-2.5 text-xs text-neutral-400">
@@ -178,6 +191,32 @@ const CardComponent: React.FC<CardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Desktop move buttons */}
+      {onMove && !isFirstColumn && (
+        <button
+          type="button"
+          aria-label="Move left"
+          onClick={() => onMove(card.id, 'prev')}
+          className="absolute -left-2 top-1/2 -translate-y-1/2 bg-neutral-700/80 hover:bg-neutral-600 text-neutral-200 rounded-full p-1 shadow"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+          </svg>
+        </button>
+      )}
+      {onMove && !isLastColumn && (
+        <button
+          type="button"
+          aria-label="Move right"
+          onClick={() => onMove(card.id, 'next')}
+          className="absolute -right-2 top-1/2 -translate-y-1/2 bg-neutral-700/80 hover:bg-neutral-600 text-neutral-200 rounded-full p-1 shadow"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };

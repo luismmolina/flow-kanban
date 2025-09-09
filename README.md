@@ -38,6 +38,12 @@ Prerequisites: Node.js 18+ (or any recent LTS)
 
 No environment variables are required. The previous reference to `GEMINI_API_KEY` was removed because this app runs entirely in the browser.
 
+## Usage
+
+- Click the pencil on a card to edit details.
+- Move cards by swiping horizontally on touch devices, or use the left/right arrow buttons on each card (desktop).
+- WIP limits block moves when a target column is full.
+
 ## Project Structure
 
 - `index.html` – App shell and Tailwind CDN config
